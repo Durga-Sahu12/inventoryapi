@@ -24,6 +24,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -74,6 +75,7 @@ public class ItemApiIntegrationTest {
 		testData = null;
 	}
 
+	@WithMockUser("durga")
 	@Test
 	public void getAllItemsTest()  {
 		try {
@@ -86,6 +88,7 @@ public class ItemApiIntegrationTest {
 		}
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void getItemByIdTest() {
 		Item testRec = testData.get(0);
@@ -101,6 +104,7 @@ public class ItemApiIntegrationTest {
 		}		
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void getItemByIdTestNonExsiting() {
 		
@@ -113,6 +117,7 @@ public class ItemApiIntegrationTest {
 		}		
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void getItemByTitleTest(){
 		Item testRec = testData.get(0);
@@ -128,6 +133,7 @@ public class ItemApiIntegrationTest {
 		}	
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void getItemByPackageDateTest(){
 		Item testRec = testData.get(0);
@@ -142,6 +148,7 @@ public class ItemApiIntegrationTest {
 		}	
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void getItemByPriceRangeTest() {
 		
@@ -163,6 +170,7 @@ public class ItemApiIntegrationTest {
 	    return mapper;
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void createItemTest() {
 		Item testRec = new Item(201, "Ground Nuts", 5025, LocalDate.now());
@@ -178,6 +186,7 @@ public class ItemApiIntegrationTest {
 	
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void updateItemTest() {
 		Item testRec = testData.get(0);
@@ -193,6 +202,7 @@ public class ItemApiIntegrationTest {
 	
 	}
 	
+	@WithMockUser("durga")
 	@Test
 	public void deleteItemsByIdTest() {
 		
