@@ -23,10 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.dxc.inventoryapi.api.ItemApi;
+import com.dxc.inventoryapi.config.JwtAuthenticationEntryPoint;
+import com.dxc.inventoryapi.config.JwtTokenUtil;
 import com.dxc.inventoryapi.entity.Item;
 import com.dxc.inventoryapi.service.ItemService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,6 +45,15 @@ public class ItemApiUnitTest {
 	@Autowired
 	private MockMvc mvcClient;
 
+	@MockBean
+    private UserDetailsService userService;
+   
+    @MockBean
+    private JwtTokenUtil jwtTokenUtil;
+   
+    @MockBean
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+       
 	@MockBean
 	private ItemService itemService;
 
@@ -63,6 +76,7 @@ public class ItemApiUnitTest {
 		testData = null;
 	}
 
+@WithMockUser
 	@Test
 	public void getAllItemsTest()  {
 		Mockito.when(itemService.getAllItems()).thenReturn(testData);
@@ -77,6 +91,8 @@ public class ItemApiUnitTest {
 		}
 	}
 	
+	
+	@WithMockUser
 	@Test
 	public void getItemByIdTest() {
 		Item testRec = testData.get(0);
@@ -94,6 +110,7 @@ public class ItemApiUnitTest {
 		}		
 	}
 	
+	@WithMockUser
 	@Test
 	public void getItemByIdTestNonExsiting() {
 		
@@ -108,6 +125,7 @@ public class ItemApiUnitTest {
 		}		
 	}
 	
+	@WithMockUser
 	@Test
 	public void getItemByTitleTest(){
 	Item testRec = testData.get(0);
@@ -125,6 +143,7 @@ public class ItemApiUnitTest {
 		}	
 	}
 	
+	@WithMockUser
 	@Test
 	public void getItemByPackageDateTest(){
 		Item testRec = testData.get(0);
@@ -141,6 +160,7 @@ public class ItemApiUnitTest {
 		}	
 	}
 	
+	@WithMockUser
 	@Test
 	public void getItemByPriceRangeTest() {
 		
@@ -164,6 +184,7 @@ public class ItemApiUnitTest {
 	    return mapper;
 	}
 	
+	@WithMockUser
 	@Test
 	public void createItemTest() {
 		Item testRec = testData.get(0);
@@ -181,6 +202,7 @@ public class ItemApiUnitTest {
 	
 	}
 	
+	@WithMockUser
 	@Test
 	public void updateItemTest() {
 		Item testRec = testData.get(0);
@@ -198,6 +220,7 @@ public class ItemApiUnitTest {
 	
 	}
 	
+	@WithMockUser
 	@Test
 	public void deleteItemsByIdTest() {
 		
